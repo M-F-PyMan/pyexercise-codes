@@ -1,4 +1,4 @@
-1. back ground remover app requirements: 
+1. Back ground remover app requirements: 
 #install this requirments with pip :
 
 pip install PyQt5
@@ -9,4 +9,7 @@ pip install pillow
 
 pip install PyQt5 
 
-3.
+3.Translator App(online version):
+#install this requirments with pip :
+pip install PyQt5
+pip install googletrans
