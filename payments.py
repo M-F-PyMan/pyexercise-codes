@@ -145,7 +145,7 @@ def callback_gateway_view(request):
         logger.error("Missing tracking code in callback.")
         raise Http404("لینک پرداخت معتبر نیست.")
 
-    # Step 1: Retrieve bank record
+    
     try:
         bank_record = Bank.objects.get(tracking_code=tracking_code)
     except Bank.DoesNotExist:
@@ -171,8 +171,8 @@ def callback_gateway_view(request):
             "name": user.username
         })
 
-    # Step 4: Use verified bank record directly
-    verified_record = bank_record  # Skip verify_from_gateway to avoid reference_number error
+    
+    verified_record = bank_record  
 
     if verified_record.status == "COMPLETE":
         transaction.status = "SUCCESS"
@@ -198,7 +198,7 @@ def callback_gateway_view(request):
                 order=order,
                 product=item.product,
                 quantity=item.quantity,
-                price=price  # ✅ Fix: ensure price is not null
+                price=price
             )
             item.delete()
 
@@ -209,7 +209,7 @@ def callback_gateway_view(request):
             "name": user.username
         })
 
-    # Step 5: Fallback failure
+    
     transaction.status = "FAIL"
     transaction.save()
     logger.warning(f"Payment not verified | Transaction #{transaction.id}")
